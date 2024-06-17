@@ -6,7 +6,7 @@ struct Tnode {
 	Tnode* _lson, * _rson;
 };
 
-void insert_tree_rec(Tnode*& root, int num)
+void insert_rec(Tnode*& root, int num)
 {
 	if (!root) // create new member and insert into tree
 	{
@@ -17,13 +17,13 @@ void insert_tree_rec(Tnode*& root, int num)
 		return;
 	}
 
-	if (num < root->_val)  
-		insert_tree_rec(root->_lson, num); // rec. call
+	if (num <= root->_val)  
+		insert_rec(root->_lson, num); // rec. call
 	else	
-		insert_tree_rec(root->_rson, num); // rec. call
+		insert_rec(root->_rson, num); // rec. call
 }
 
-void build_and_insert(Tnode* &root)
+void insert(Tnode* &root)
 {
 	int num;
 	cout << "Enter number:\n";
@@ -31,31 +31,31 @@ void build_and_insert(Tnode* &root)
 
 	while (num)
 	{
-		insert_tree_rec(root, num);
+		insert_rec(root, num);
 		cout << "Enter number:\n";
 		cin >> num;
 	}
 }
 
-void print_tree_LTR(Tnode* root)
+void print_InOrder(Tnode* root)
 { 
 	// print LTR
 	if (root)
 	{
-		print_tree_LTR(root->_lson);
+		print_InOrder(root->_lson);
 		cout << root->_val << ' ';
-		print_tree_LTR(root->_rson);
+		print_InOrder(root->_rson);
 	}
 }
 
-void print_tree_RTL(Tnode* root)
+void print_InOrder_reverse(Tnode* root)
 {
 	// print RTL
 	if (root)
 	{
-		print_tree_RTL(root->_rson);
+		print_InOrder_reverse(root->_rson);
 		cout << root->_val << ' ';	
-		print_tree_RTL(root->_lson);
+		print_InOrder_reverse(root->_lson);
 	}
 }
 
@@ -73,12 +73,12 @@ void free_tree(Tnode*& root)
 int main()
 {
 	Tnode* root = nullptr;
-	build_and_insert(root);
+	insert(root);
 
-	print_tree_LTR(root); 
+	print_InOrder(root); 
 	cout << endl;
 
-	print_tree_RTL(root);
+	print_InOrder_reverse(root);
 	cout << endl;
 
 	free_tree(root);
