@@ -5,7 +5,7 @@ struct Tnode {
 	int _val;
 	Tnode* _lson, * _rson;
 };
-
+//===========================================================
 void insertRec(Tnode*& root, int num)
 {
 	if (!root) // create new member and insert into tree
@@ -22,7 +22,7 @@ void insertRec(Tnode*& root, int num)
 	else
 		insertRec(root->_rson, num); // rec. call
 }
-
+//===========================================================
 Tnode* insert()
 {
 	Tnode* root = nullptr;
@@ -33,7 +33,7 @@ Tnode* insert()
 
 	return root;
 }
-
+//===========================================================
 int count_nodes_with_equal_left_child(Tnode* root, int counter)
 {
 	// we use here with In-order;
@@ -52,12 +52,24 @@ int count_nodes_with_equal_left_child(Tnode* root, int counter)
 
 	return counter;
 }
-
+//===========================================================
+void free_tree(Tnode*& root)
+{
+	if (root)
+	{
+		free_tree(root->_lson);
+		free_tree(root->_rson);
+		delete root;
+		root = nullptr;
+	}
+}
+//===========================================================
 int main()
 {
 	Tnode* root = insert();
 	cout << count_nodes_with_equal_left_child(root, 0); // check how much nodes equal to their left son ?
-	
+	free_tree(root);
+
 	return 0;
 }
 
