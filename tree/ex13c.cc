@@ -6,7 +6,7 @@ struct Node {
     Node* _left;
     Node* _right;
 };
-
+//===================================================================
 void insertRec(Node*& root, int num) {
     if (!root) {
         root = new Node();
@@ -22,7 +22,7 @@ void insertRec(Node*& root, int num) {
         insertRec(root->_right, num);
     }
 }
-
+//===================================================================
 Node* insert() {
     Node* root = nullptr;
     int num;
@@ -33,7 +33,7 @@ Node* insert() {
 
     return root;
 }
-
+//===================================================================
 void printInOrder(Node* root) {
     if (root) {
         printInOrder(root->_left);
@@ -41,7 +41,7 @@ void printInOrder(Node* root) {
         printInOrder(root->_right);
     }
 }
-
+//===================================================================
 void check_evevOrOdd(Node* root, int &even_count, int &odd_count)
 {
     if (root->_data % 2 == 0)
@@ -49,7 +49,7 @@ void check_evevOrOdd(Node* root, int &even_count, int &odd_count)
     else
         odd_count++;
 }
-
+//===================================================================
 void even_values_​greater_odd_values(Node* root, Node*& under_root,int size_under_root)
 {
     Node* max_Node_temp = nullptr;
@@ -74,13 +74,14 @@ void even_values_​greater_odd_values(Node* root, Node*& under_root,int size_un
         size_max_Node_temp = even_count;
     }
 
+    if (even_count != odd_count)
     if (size_max_Node_temp > size_under_root) // if this max Node, update value.
     {
         under_root = max_Node_temp;
         size_under_root = size_max_Node_temp;
     }
 }
-
+//===================================================================
 void free_tree(Node*& root)
 {
     if (root)
@@ -90,7 +91,7 @@ void free_tree(Node*& root)
         delete root;
     }
 }
-
+//===================================================================
 int main() 
 {
     Node* root = insert();

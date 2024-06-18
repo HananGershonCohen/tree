@@ -24,5 +24,8 @@
     <ClCompile Include="ex13c.cc">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="ex13b.cc">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>
