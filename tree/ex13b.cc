@@ -10,12 +10,10 @@ struct Input
     int in_x;
     int in_y;
 };
-
 struct Point {
     int x;
     int y;
 };
-
 struct Node {
     int _id;
     Point* _data;
@@ -74,15 +72,63 @@ void print_InOrder(Node* root) {
     }
 }
 //===================================================================
-void find_largest_quadrant_subtree(Node* root, Node*& largest_quadrant_subtree)
+bool is_in_same_quadrant(Point* root_data, Point* child_data) 
 {
+    return (root_data->x * child_data->x > 0) && (root_data->y * child_data->y > 0);
+}
+//===================================================================
+bool is_node_corent_correct_rec2(Node* root, int& node_counter_corent)
+{
+    if (!root)
+        return true;
 
+    is_node_corent_correct_rec2(root->_left, ++node_counter_corent); // In-Order (LDR)
+    
+    bool flag = true;
+    if (root->_left)
+    {
+        if (!is_in_same_quadrant(root->_data, root->_left->_data))
+            flag = false;
+    }
+
+    if (root->_right)
+    {
+        if (!is_in_same_quadrant(root->_data, root->_right->_data))
+            flag = false;
+    }
+
+    if (!flag)
+        return false;
+
+    is_node_corent_correct_rec2(root->_right, ++node_counter_corent); // In-Order (LDR)
+}
+//===================================================================
+void find_largest_quadrant_subtree_rec1(Node* root, Node*& largest_quadrant_subtre, int& max_counteer)
+{
+    if (!root)
+        return;
+
+    find_largest_quadrant_subtree_rec1(root->_left, largest_quadrant_subtre, max_counteer); // In-Order (LDR)
+
+    int node_counter_corent = 0;
+    if (is_node_corent_correct_rec2(root, node_counter_corent))
+    {
+        if (node_counter_corent > max_counteer)
+        {
+            max_counteer = node_counter_corent;
+            largest_quadrant_subtre = root;
+        }
+    }
+
+    find_largest_quadrant_subtree_rec1(root->_right, largest_quadrant_subtre, max_counteer); // In-Order (LDR)
 }
 //===================================================================
 Node* find_largest_quadrant_subtree(Node* root)
 {
+    // The function calls a recursive function that checks which subtree is all in the same quadrant
     Node* largest_quadrant_subtree = nullptr;
-    find_largest_quadrant_subtree(root, largest_quadrant_subtree);
+    int max_counteer = 0;
+    find_largest_quadrant_subtree_rec1(root, largest_quadrant_subtree, max_counteer);
 
     return largest_quadrant_subtree;
 }
@@ -100,6 +146,7 @@ int main()
 {
     Node* root = insert();
     print_InOrder(root);
+    cout << endl;
     Node* largest_quadrant_subtree = find_largest_quadrant_subtree(root);
     print_subtree(largest_quadrant_subtree);
 
