@@ -34,14 +34,6 @@ Node* insert() {
     return root;
 }
 //===================================================================
-void printInOrder(Node* root) {
-    if (root) {
-        printInOrder(root->_left);
-        cout << root->_data << " ";
-        printInOrder(root->_right);
-    }
-}
-//===================================================================
 void check_evevOrOdd(Node* root, int &even_count, int &odd_count)
 {
     if (root->_data % 2 == 0)
@@ -70,15 +62,11 @@ void even_values_​greater_odd_values(Node* root, Node*& under_root,int size_un
 
     if (even_count > odd_count) // if this local node is right, update value.
     {
-        max_Node_temp = root;
-        size_max_Node_temp = even_count;
-    }
-
-    if (even_count != odd_count)
-    if (size_max_Node_temp > size_under_root) // if this max Node, update value.
-    {
-        under_root = max_Node_temp;
-        size_under_root = size_max_Node_temp;
+        if (even_count > size_under_root) // if this max Node, update value.
+        {
+            under_root = root;
+            size_under_root = even_count;
+        }
     }
 }
 //===================================================================
@@ -103,9 +91,7 @@ void print_result(Node* under_root)
 int main() 
 {
     Node* root = insert();
-    printInOrder(root);
-    cout << endl;
-
+ 
     Node* under_root = nullptr;
     even_values_​greater_odd_values(root, under_root, 0);
     print_result(under_root);
