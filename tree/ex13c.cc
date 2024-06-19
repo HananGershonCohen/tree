@@ -92,6 +92,14 @@ void free_tree(Node*& root)
     }
 }
 //===================================================================
+void print_result(Node* under_root)
+{
+    if (!under_root)
+        cout << "NOT FOUND";
+    else
+        cout << under_root->_data;
+}
+//===================================================================
 int main() 
 {
     Node* root = insert();
@@ -100,11 +108,7 @@ int main()
 
     Node* under_root = nullptr;
     even_values_​greater_odd_values(root, under_root, 0);
-   if (!under_root)
-       cout << "NOT FOUND";
-   else
-       cout << under_root->_data;
-
+    print_result(under_root);
 
    free_tree(root);
 

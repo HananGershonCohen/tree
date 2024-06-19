@@ -1,4 +1,4 @@
-#include <iostream>
+ï»¿#include <iostream>
 using namespace std;
 //******
 //STRUCT
@@ -24,7 +24,7 @@ struct Node {
 void insert_data(Node*& root, Input user)
 {
     root->_id = user.in_id;
-    root->_data = new Point(); // ä÷öàú æéëøåï òáåø ä-Point
+    root->_data = new Point(); // ×”×§×¦××ª ×–×™×›×¨×•×Ÿ ×¢×‘×•×¨ ×”-Point
     root->_data->x = user.in_x;
     root->_data->y = user.in_y;
     root->_left = root->_right = nullptr;
@@ -97,7 +97,7 @@ bool is_node_corent_correct_rec2(Node* root, int& node_counter_corent)
             flag = false;
     }
 
-    if (!flag)
+    if (!flag) // If one of the child is not in the same quadrant.
         return false;
 
     is_node_corent_correct_rec2(root->_right, ++node_counter_corent); // In-Order (LDR)
@@ -110,6 +110,7 @@ void find_largest_quadrant_subtree_rec1(Node* root, Node*& largest_quadrant_subt
 
     find_largest_quadrant_subtree_rec1(root->_left, largest_quadrant_subtre, max_counteer); // In-Order (LDR)
 
+    // The test part: Now we will call another recursive function that will check starting from the current place, is the whole tree in the same quarter?. The function will return a Boolean value that only if it is true then we will change the values.
     int node_counter_corent = 0;
     if (is_node_corent_correct_rec2(root, node_counter_corent))
     {
@@ -133,7 +134,7 @@ Node* find_largest_quadrant_subtree(Node* root)
     return largest_quadrant_subtree;
 }
 //===================================================================
-void print_subtree(Node* largest_quadrant_subtree)
+void print_point(Node* largest_quadrant_subtree)
 {
     if (largest_quadrant_subtree)
         cout << largest_quadrant_subtree->_data->x << ' '
@@ -142,13 +143,27 @@ void print_subtree(Node* largest_quadrant_subtree)
         cout << "0 0" << endl;
 }
 //===================================================================
+void free_tree(Node*& root)
+{
+    if (root)
+    {
+        free_tree(root->_left);
+        free_tree(root->_right);
+        delete root;
+    }
+}
+//===================================================================
 int main()
 {
     Node* root = insert();
     print_InOrder(root);
     cout << endl;
-    Node* largest_quadrant_subtree = find_largest_quadrant_subtree(root);
-    print_subtree(largest_quadrant_subtree);
+
+    // The function returns a pointer to the subtree where all values â€‹â€‹are within the same quadrant.
+    Node* largest_quadrant_subtree = find_largest_quadrant_subtree(root); 
+    print_point(largest_quadrant_subtree);
+
+    free_tree(root);
 
     return 0;
 }
