@@ -74,10 +74,34 @@ void print_InOrder(Node* root) {
     }
 }
 //===================================================================
+void find_largest_quadrant_subtree(Node* root, Node*& largest_quadrant_subtree)
+{
+
+}
+//===================================================================
+Node* find_largest_quadrant_subtree(Node* root)
+{
+    Node* largest_quadrant_subtree = nullptr;
+    find_largest_quadrant_subtree(root, largest_quadrant_subtree);
+
+    return largest_quadrant_subtree;
+}
+//===================================================================
+void print_subtree(Node* largest_quadrant_subtree)
+{
+    if (largest_quadrant_subtree)
+        cout << largest_quadrant_subtree->_data->x << ' '
+        << largest_quadrant_subtree->_data->y << endl;
+    else
+        cout << "0 0" << endl;
+}
+//===================================================================
 int main()
 {
     Node* root = insert();
     print_InOrder(root);
+    Node* largest_quadrant_subtree = find_largest_quadrant_subtree(root);
+    print_subtree(largest_quadrant_subtree);
 
     return 0;
 }
