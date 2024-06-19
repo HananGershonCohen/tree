@@ -22,16 +22,20 @@ struct Node {
     Node* _left;
     Node* _right;
 };
-
+//===================================================================
+void insert_data(Node*& root, Input user)
+{
+    root->_id = user.in_id;
+    root->_data = new Point(); // הקצאת זיכרון עבור ה-Point
+    root->_data->x = user.in_x;
+    root->_data->y = user.in_y;
+    root->_left = root->_right = nullptr;
+}
 //===================================================================
 void insertRec(Node*& root, Input user) {
     if (!root) {
         root = new Node();
-        root->_id = user.in_id;
-        root->_data = new Point(); // הקצאת זיכרון עבור ה-Point
-        root->_data->x = user.in_x;
-        root->_data->y = user.in_y;
-        root->_left = root->_right = nullptr;
+        insert_data(root, user); // func. for insert data into tree.(not rec.)
         return;
     }
 
@@ -47,6 +51,7 @@ Node* insert() {
     Input user;
     Node* root = nullptr;
 
+    // condition: while input 3 varible and not EOF.
     while (cin >> user.in_id >> user.in_x >> user.in_y) {  // Use EOF for input termination
         insertRec(root, user);
     }
@@ -54,12 +59,17 @@ Node* insert() {
     return root;
 }
 //===================================================================
+void print_data(Node* root)
+{
+    cout << root->_id << ' ';
+    cout << root->_data->x << ' ';
+    cout << root->_data->y << ' ';
+}
+//===================================================================
 void print_InOrder(Node* root) {
     if (root) {
         print_InOrder(root->_left);
-        cout << root->_id << ' ';
-        cout << root->_data->x << ' ';
-        cout << root->_data->y << ' ';
+        print_data(root); // func. for print the data.
         print_InOrder(root->_right);
     }
 }
