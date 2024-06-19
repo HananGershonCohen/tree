@@ -7,7 +7,7 @@ struct Node {
     Node* _right;
 };
 //===================================================================
-void insertRec(Node*& root, int num) {
+void insert(Node*& root, int num) {
     if (!root) {
         root = new Node();
         root->_data = num;
@@ -16,10 +16,10 @@ void insertRec(Node*& root, int num) {
     }
 
     if (num <= root->_data) {
-        insertRec(root->_left, num);
+        insert(root->_left, num);
     }
     else {
-        insertRec(root->_right, num);
+        insert(root->_right, num);
     }
 }
 //===================================================================
@@ -28,7 +28,7 @@ Node* insert() {
     int num;
 
     while (cin >> num && num != EOF) {  // Use EOF for input termination
-        insertRec(root, num);
+        insert(root, num);
     }
 
     return root;

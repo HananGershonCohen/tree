@@ -32,7 +32,7 @@ void insert_data(Node*& root, Input user)
     root->_left = root->_right = nullptr;
 }
 //===================================================================
-void insertRec(Node*& root, Input user) {
+void insert(Node*& root, Input user) {
     if (!root) {
         root = new Node();
         insert_data(root, user); // func. for insert data into tree.(not rec.)
@@ -40,10 +40,10 @@ void insertRec(Node*& root, Input user) {
     }
 
     if (user.in_id <= root->_id) {
-        insertRec(root->_left, user);
+        insert(root->_left, user);
     }
     else {
-        insertRec(root->_right, user);
+        insert(root->_right, user);
     }
 }
 //===================================================================
@@ -53,7 +53,7 @@ Node* insert() {
 
     // condition: while input 3 varible and not EOF.
     while (cin >> user.in_id >> user.in_x >> user.in_y) {  // Use EOF for input termination
-        insertRec(root, user);
+        insert(root, user);
     }
 
     return root;
