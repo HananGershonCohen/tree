@@ -42,6 +42,25 @@ void check_evenOrOdd(Node* root, int &even_count, int &odd_count)
         odd_count++;
 }
 //===================================================================
+bool is_node_even_greater(Node* root, int& even_count, int& odd_count)
+{
+    if (!root)
+        if (even_count > odd_count)
+            return true;
+        else
+            return false;
+
+    is_node_even_greater(root->_left, even_count, odd_count);
+    is_node_even_greater(root->_right, even_count, odd_count);
+
+    check_evenOrOdd(root, even_count, odd_count);
+    if (root->_left)
+        check_evenOrOdd(root->_left, even_count, odd_count);
+    if (root->_right)
+        check_evenOrOdd(root->_right, even_count, odd_count);
+
+}
+//===================================================================
 void even_values_​greater_odd_values(Node* root, Node*& under_root,int size_under_root)
 {
    
@@ -53,17 +72,14 @@ void even_values_​greater_odd_values(Node* root, Node*& under_root,int size_un
     even_values_​greater_odd_values(root->_right, under_root, size_under_root);
 
     int even_count = 0, odd_count = 0; // local variables
-    check_evenOrOdd(root,even_count,odd_count);
-    if (root->_left)
-        check_evenOrOdd(root->_left, even_count, odd_count);
-    if (root->_right)
-        check_evenOrOdd(root->_right, even_count, odd_count);
-
-    // if this local node is right, update value. AND  if this max Node, update value.
-    if (even_count > odd_count && even_count > size_under_root) 
+    if (is_node_even_greater(root, even_count, odd_count))
     {
-        under_root = root;
-        size_under_root = even_count;
+        // if this local node is right, update value. AND  if this max Node, update value.
+        if (even_count > odd_count && even_count > size_under_root)
+        {
+            under_root = root;
+            size_under_root = even_count;
+        }
     }
 }
 //===================================================================
