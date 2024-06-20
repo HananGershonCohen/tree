@@ -42,44 +42,33 @@ void check_evenOrOdd(Node* root, int &even_count, int &odd_count)
         odd_count++;
 }
 //===================================================================
-bool is_node_even_greater(Node* root, int& even_count, int& odd_count)
+void node_corrent_rec2(Node* root, int& even_count, int& odd_count)
 {
     if (!root)
-        if (even_count > odd_count)
-            return true;
-        else
-            return false;
+        return;
 
-    is_node_even_greater(root->_left, even_count, odd_count);
-    is_node_even_greater(root->_right, even_count, odd_count);
+    node_corrent_rec2(root->_left, even_count, odd_count);
+    node_corrent_rec2(root->_right, even_count, odd_count);
 
     check_evenOrOdd(root, even_count, odd_count);
-    if (root->_left)
-        check_evenOrOdd(root->_left, even_count, odd_count);
-    if (root->_right)
-        check_evenOrOdd(root->_right, even_count, odd_count);
 
 }
 //===================================================================
-void even_values_​greater_odd_values(Node* root, Node*& under_root,int size_under_root)
+void even_values_​greater_odd_values_rec1(Node* root, Node*& under_root,int size_under_root)
 {
-   
-
     if (!root) // if there is no tree
         return ;
 
-    even_values_​greater_odd_values(root->_left, under_root, size_under_root);
-    even_values_​greater_odd_values(root->_right, under_root, size_under_root);
+    even_values_​greater_odd_values_rec1(root->_left, under_root, size_under_root);
+    even_values_​greater_odd_values_rec1(root->_right, under_root, size_under_root);
 
     int even_count = 0, odd_count = 0; // local variables
-    if (is_node_even_greater(root, even_count, odd_count))
+    node_corrent_rec2(root, even_count, odd_count);
+    // if this local node is right, update value. AND  if this max Node, update value.
+    if (even_count > odd_count && even_count > size_under_root)
     {
-        // if this local node is right, update value. AND  if this max Node, update value.
-        if (even_count > odd_count && even_count > size_under_root)
-        {
-            under_root = root;
-            size_under_root = even_count;
-        }
+        under_root = root;
+        size_under_root = even_count;
     }
 }
 //===================================================================
@@ -106,7 +95,7 @@ int main()
     Node* root = insert();
  
     Node* under_root = nullptr;
-    even_values_​greater_odd_values(root, under_root, 0);
+    even_values_​greater_odd_values_rec1(root, under_root, 0);
     print_result(under_root);
 
    free_tree(root);
