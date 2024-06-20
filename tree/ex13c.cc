@@ -44,8 +44,7 @@ void check_evenOrOdd(Node* root, int &even_count, int &odd_count)
 //===================================================================
 void even_values_​greater_odd_values(Node* root, Node*& under_root,int size_under_root)
 {
-    Node* max_Node_temp = nullptr;
-    int  size_max_Node_temp = 0;
+   
 
     if (!root) // if there is no tree
         return ;
@@ -60,13 +59,11 @@ void even_values_​greater_odd_values(Node* root, Node*& under_root,int size_un
     if (root->_right)
         check_evenOrOdd(root->_right, even_count, odd_count);
 
-    if (even_count > odd_count) // if this local node is right, update value.
+    // if this local node is right, update value. AND  if this max Node, update value.
+    if (even_count > odd_count && even_count > size_under_root) 
     {
-        if (even_count > size_under_root) // if this max Node, update value.
-        {
-            under_root = root;
-            size_under_root = even_count;
-        }
+        under_root = root;
+        size_under_root = even_count;
     }
 }
 //===================================================================
