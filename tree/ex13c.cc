@@ -34,7 +34,7 @@ Node* insert() {
     return root;
 }
 //===================================================================
-void check_evevOrOdd(Node* root, int &even_count, int &odd_count)
+void check_evenOrOdd(Node* root, int &even_count, int &odd_count)
 {
     if (root->_data % 2 == 0)
         even_count++;
@@ -54,11 +54,11 @@ void even_values_​greater_odd_values(Node* root, Node*& under_root,int size_un
     even_values_​greater_odd_values(root->_right, under_root, size_under_root);
 
     int even_count = 0, odd_count = 0; // local variables
-    check_evevOrOdd(root,even_count,odd_count);
+    check_evenOrOdd(root,even_count,odd_count);
     if (root->_left)
-        check_evevOrOdd(root->_left, even_count, odd_count);
+        check_evenOrOdd(root->_left, even_count, odd_count);
     if (root->_right)
-        check_evevOrOdd(root->_right, even_count, odd_count);
+        check_evenOrOdd(root->_right, even_count, odd_count);
 
     if (even_count > odd_count) // if this local node is right, update value.
     {
