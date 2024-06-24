@@ -54,13 +54,13 @@ void node_corrent_rec2(Node* root, int& even_count, int& odd_count)
 
 }
 //===================================================================
-void even_values_​greater_odd_values_rec1(Node* root, Node*& under_root,int size_under_root)
+void even_great_than_odd_rec1(Node* root, Node*& under_root,int size_under_root)
 {
     if (!root) // if there is no tree
         return ;
 
-    even_values_​greater_odd_values_rec1(root->_left, under_root, size_under_root);
-    even_values_​greater_odd_values_rec1(root->_right, under_root, size_under_root);
+    even_great_than_odd_rec1(root->_left, under_root, size_under_root);
+    even_great_than_odd_rec1(root->_right, under_root, size_under_root);
 
     int even_count = 0, odd_count = 0; // local variables
     node_corrent_rec2(root, even_count, odd_count);
@@ -95,7 +95,7 @@ int main()
     Node* root = insert();
  
     Node* under_root = nullptr;
-    even_values_​greater_odd_values_rec1(root, under_root, 0);
+    even_great_than_odd_rec1(root, under_root, 0);
     print_result(under_root);
 
    free_tree(root);
